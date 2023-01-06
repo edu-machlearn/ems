@@ -1,6 +1,5 @@
 package com.biswa.signup;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +15,14 @@ import com.biswa.entity.Employee;
 @RequestMapping("/employee")
 @RestController
 public class SignUpController {
-	
+
 	@Autowired
 	SignUpService signUpService;
-	
+
 	@PostMapping("/saveEmp")
 	public ResponseEntity<Object> createNewEmployee(@RequestBody Employee employee) {
-		Map<String, Object> response=
-		signUpService.createNewEmployee(employee);
-		return new ResponseEntity<Object>(response,HttpStatus.OK);
+		Map<String, Object> response = signUpService.createNewEmployee(employee);
+		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
 }

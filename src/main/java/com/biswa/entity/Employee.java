@@ -12,17 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "employee")
 public class Employee implements Serializable {
@@ -45,6 +46,7 @@ public class Employee implements Serializable {
 	@Column(name = "mobile", length = 100, unique = true)
 	private String mobile;
 	
+
 	@Column(name = "password", length = 100)
 	private String password;
 	
@@ -55,10 +57,10 @@ public class Employee implements Serializable {
 	private Date dateOfBirth;
 
 	@CreationTimestamp
-	@JsonIgnore
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a")
 	private LocalDateTime createDateTime;
 
 	@UpdateTimestamp
-	@JsonIgnore
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a")
 	private LocalDateTime updateDateTime;
 }
