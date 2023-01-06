@@ -18,11 +18,6 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 
-//	@PostMapping("/loginEmp")
-//	public String findAll() {
-//		return "all";
-//	}
-	
 	@PostMapping("/loginEmp")
 	public ResponseEntity<Object> loginEmployee(@RequestBody Employee employee) {
 		Map<String, Object> response = loginService.loginEmployee(employee);
