@@ -31,7 +31,7 @@ public class Employee implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employee_id")
+	@Column(name = "address_id")
 	private int ID;
 
 	@Column(name = "first_name", length = 100)
@@ -63,4 +63,7 @@ public class Employee implements Serializable {
 	@UpdateTimestamp
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss a")
 	private LocalDateTime updateDateTime;
+	
+	@Column(insertable = false, updatable = false)
+	private Integer address_id;
 }
