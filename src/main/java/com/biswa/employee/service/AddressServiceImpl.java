@@ -28,27 +28,24 @@ public class AddressServiceImpl implements AddressService {
 	public Address saveNewAddress(Address address, String email) {
 
 		Integer emp_id = null;
-		Address saveAdd = empAddressDao.save(address);
+		Address saveAdd = null;
 		try {
+			saveAdd = empAddressDao.save(address);
+			System.out.println("Insert data To Address..");
 			StoredProcedureQuery spq = entityManager.createStoredProcedureQuery("getIdFromMail", Employee.class);
 			spq.registerStoredProcedureParameter("email", String.class, ParameterMode.IN);
 			spq.registerStoredProcedureParameter("id", Integer.class, ParameterMode.OUT);
 			spq.setParameter("email", email);
 			spq.execute();
 			emp_id = (Integer) spq.getOutputParameterValue("id");
-			System.out.println("ID ---" + spq.getOutputParameterValue("id"));
+			int result = entityManager.createNativeQuery("update employee set address_id="+saveAdd.getID() + " where employee_id=" + emp_id)
+					.executeUpdate();
+			if (result > 0)
+				System.out.println("Update Address in Employee table Success...");
 		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
 		}
 
-		
-
-		
-		int result = entityManager.createNativeQuery("update employee set address_id="+saveAdd.getID()+" where employee_id="+emp_id).executeUpdate();
-		if(result>0)
-			System.out.println("Update Address in Employee table Success...");
-		
-		System.out.println(saveAdd.getID());
 		return saveAdd;
 	}
 
